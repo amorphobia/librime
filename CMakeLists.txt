@@ -221,6 +221,20 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Linux|FreeBSD|OpenBSD|DragonFly|GNU|Darwin" OR 
       @ONLY)
   install(FILES ${PROJECT_BINARY_DIR}/rime.pc
     DESTINATION ${CMAKE_INSTALL_FULL_LIBDIR}/pkgconfig)
+elseif(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+  set(prefix [[${pcfiledir}/../..]])
+  set(exec_prefix [[${prefix}]])
+  set(bindir [[${prefix}/bin]])
+  set(libdir [[${prefix}/lib]])
+  set(pkgdatadir [[${prefix}/share/rime-data]])
+  set(pluginsdir [[${prefix}/lib/rime-plugins]])
+  set(includedir [[${prefix}/include]])
+  configure_file(
+      ${PROJECT_SOURCE_DIR}/rime.pc.in
+      ${PROJECT_BINARY_DIR}/rime.pc
+      @ONLY)
+  install(FILES ${PROJECT_BINARY_DIR}/rime.pc
+    DESTINATION ${CMAKE_INSTALL_FULL_LIBDIR}/pkgconfig)
 endif()
 
 install(FILES cmake/RimeConfig.cmake
